@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.stereotype.Repository;
 
 import com.teste.exemplo.model.Produto;
+import com.teste.exemplo.model.exception.ResourceNotFoundException;
 @Repository
 public class ProdutoRepository {
     
@@ -33,6 +34,7 @@ public class ProdutoRepository {
         }
     
         public Produto updateProduto(Produto produto) {
+            
             for (Produto p : produtos) {
                 if (p.getId().equals(produto.getId())) {
                     p.setNome(produto.getNome());
@@ -41,6 +43,11 @@ public class ProdutoRepository {
                     p.setDescricao(produto.getDescricao());
                     return p;
                 }
+
+                throw new ResourceNotFoundException("Produto não encontrado");
+                
+
+                
             }
             return null;
         }
